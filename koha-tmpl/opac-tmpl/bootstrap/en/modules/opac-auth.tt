@@ -92,8 +92,16 @@
                                 <h3>CAS login</h3>
                                 <p>If you do not have a Shibboleth account, but you do have a CAS account, you can use CAS.</p>
                             [% ELSE %]
-                                <h3>Local login</h3>
-                                <p>If you do not have a Shibboleth account, but you do have a local login, then you may login below.</p>
+                            <!-- added code - ILL login and edit local login to affiliateLogin to work with added javascript at line 170 -->
+                            <div id="clioLogin">
+                              <h4>Interlibrary Loan Account</h4>
+                              <p><a href="https://nu.cliohosting.com/" target="_blank">Log in with your NU email to view your Interlibrary Loan account or create a new request.</a></p>
+                            </div>
+                            <div>
+                              <h4>Affiliate/Community Borrower Account</h4>
+                              <p><a id="non">If you do not have a Northwest University email, but have borrowing privileges, log in here.</a></p>
+                            </div>
+                            <!-- end added code -->
                             [% END %]
 
                         [% END %]
@@ -161,7 +169,20 @@
                         [% ELSE %]
                             <form action="[% script_name | html %]" name="auth" id="auth" method="post" autocomplete="off">
                         [% END %]
+                        <!-- added code - javascript to hide affiliateLogin -->
+                        <script>
+                            function hideElement(id) {
+                              document.getElementById(id).style.display = 'none';
+                            }
+                            function showElement(id) {
+                              document.getElementById(id).style.display = 'block';
+                            }
+                        </script>
+                        <!-- end added code -->
                             <input type="hidden" name="koha_login_context" value="opac" />
+                            <!-- added code for affiliateLogin -->
+                            <div id="affiliateLogin">
+                            <!-- end added code -->
                             <fieldset class="brief">
                             [% FOREACH INPUT IN INPUTS %]
                                 [% NEXT IF INPUT.name == 'logout.x' %]
@@ -171,8 +192,11 @@
                             <input type="text"  size="25" id="userid"  name="userid" />
                             <label for="password">Password</label><input type="password"  size="25" id="password"  name="password" />
                             </fieldset>
-
                             <input type="submit" value="Log in" class="btn" />
+                            <!-- added code for affiliateLogin -->
+                            <p/>
+                            </div>
+                            <!-- end added code -->
                             [% IF Koha.Preference('OpacPasswordChange') && Categories.can_any_reset_password %]
                                 <div id="forgotpassword">
                                     <a href="/cgi-bin/koha/opac-password-recovery.pl">Forgot your password?</a>
@@ -183,9 +207,9 @@
                                 [% PROCESS koha_news_block news => OpacLoginInstructions %]
                             [% ELSE %]
                                 <h3>Don't have a password yet?</h3>
-                                <p>If you don't have a password yet, stop by the circulation desk the next time you're in the library. We'll happily set one up for you.</p>
-                                <h3>Don't have a library card?</h3>
-                                <p>If you don't have a library card, stop by your local library to sign up.</p>
+                                <!-- added code - edited baked-in verbiage -->
+                                <p>If you don't have a password yet, stop by the front desk or email us at <a href="mailto:library@northwestu.edu">library@northwestu.edu</a>. We'll happily set one up for you.</p>
+                                <!-- end added code -->
                             [% END # / IF Koha.Preference('OpacLoginInstructions') %]
 
                             [% IF PatronSelfRegistration && PatronSelfRegistrationDefaultCategory %]<span id="registrationinstructions"><a href="/cgi-bin/koha/opac-memberentry.pl">You may register here.</a></span>

@@ -347,15 +347,29 @@
                     [% IF ( invalidShibLogin ) %]
                         <!-- This is what is displayed if shibboleth login has failed to match a koha user -->
                         <div class="alert alert-info">
-                            <p>Sorry, your Shibboleth identity does not match a valid library identity. If you have a local login, you may use that below.</p>
+                          <!-- added code - edit baked-in verbiage -->
+                            <p>Sorry, your NU Login does not match a valid library login. If you have an affiliate login, you may use that below.</p>
+                            <!-- end added code -->
                         </div>
                     [% ELSE %]
-                        <h3>Shibboleth login</h3>
-                        <p>If you have a Shibboleth account, please <a href="[% shibbolethLoginUrl | $raw %]">click here to login</a>.</p>
-                        <h3>Local Login</h3>
+                    <!-- added code - NU Login link, ILL link, and affiliate link -->
+                    <h4 class="primaryLoginLink"><a href="[% shibbolethLoginUrl | url %]">NU Library Account</a></h4>
+                    </br>
+                    <p class="secondaryLoginLink"><a href="https://nu.cliohosting.com/">Interlibrary Loan Account</a></p>
+                    </br>
+                    <p class="secondaryLoginLink"><a id="non" onclick="hideElement(&quot;non&quot;); showElement(&quot;affiliateLogin&quot;); return false;">Affiliate/Community Borrower Account</a></p>
+                    <div id="affiliateLogin" style="display: none">
+                      <p>Affiliate/Community Borrower Login</p>
+                      <fieldset class="brief">
+                        <label for="muserid">Login:</label><input type="text" id="muserid" name="userid" />
+                        <label for="mpassword">Password:</label><input type="password" id="mpassword" name="password" />
+                      </fieldset>
+                    </div>
+                    <!-- end added code -->
                     [% END %]
                 [% END %]
                 <input type="hidden" name="koha_login_context" value="opac" />
+                <!-- added code - comment out this area
                 <fieldset class="brief">
                     <label for="muserid">Login:</label><input type="text" id="muserid" name="userid" />
                     <label for="mpassword">Password:</label><input type="password" id="mpassword" name="password" />
@@ -375,6 +389,7 @@
                         </div>
                     [% END %]
                 </fieldset>
+                end added code -->
             </div>
             <div class="modal-footer">
                 <input type="submit" class="btn btn-primary" value="Log in" />
