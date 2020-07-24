@@ -85,21 +85,29 @@
                                     [% END %]
                                     </div>
                             [% ELSE %]
-                                <h3>Shibboleth Login</h3>
-                                <p><a href="[% shibbolethLoginUrl | $raw %]">If you have a Shibboleth account, please click here to log in.</a></p>
+                            <!-- added code - replaced heading and link/info with single link button -->
+                                <div id="NULogin">
+                                <ul id="NULogin" class="NULogin">
+                                <li><a class="NULogin" href="[% shibbolethLoginUrl | $raw %]">Student/Employee Login</a></li>
+                                <br/>
+                                <br/>
+                                <br/>
+                            <!-- end added code -->
                             [% END %]
                             [% IF ( casAuthentication ) %]
                                 <h3>CAS login</h3>
                                 <p>If you do not have a Shibboleth account, but you do have a CAS account, you can use CAS.</p>
                             [% ELSE %]
-                            <!-- added code - ILL login and edit local login to affiliateLogin to work with added javascript at line 170 -->
-                            <div id="clioLogin">
-                              <h4>Interlibrary Loan Account</h4>
-                              <p><a href="https://nu.cliohosting.com/" target="_blank">Log in with your NU email to view your Interlibrary Loan account or create a new request.</a></p>
-                            </div>
-                            <div>
-                              <h4>Affiliate/Community Borrower Account</h4>
-                              <p><a id="non">If you do not have a Northwest University email, but have borrowing privileges, log in here.</a></p>
+                            <!-- added code - ILL login button and change local login heading to button that will need to be clicked to show affiliate login form - works with added javascript in OPACUserJS preference -->
+                              <li><a class="NULogin"href="https://nu.cliohosting.com/" target="_blank">Interlibrary Loan Account</a></li>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <li id="showLogin"><a class="NULogin">Affiliate/Community Borrower Account</a></li>
+                              <br/>
+                              <br/>
+                              <br/>
+                              </ul>
                             </div>
                             <!-- end added code -->
                             [% END %]
